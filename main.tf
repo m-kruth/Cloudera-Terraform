@@ -6,20 +6,32 @@ provider "aws" {
 
 resource "aws_vpc" "sandbox" {
   cidr_block       = "10.0.0.0/16"
-  instance_tenancy = "dedicated"
 
   tags = {
     Name = "sandbox"
   }
 }
 
-resource "aws_vpc" "dev" {
-  cidr_block       = "10.0.0.0/16"
-  instance_tenancy = "dedicated"
+# Security Groups
 
-  tags = {
-    Name = "dev"
-  }
+resource "aws_security_group" "cloudera-utility-sg" {
+    name = "cloudera-utility-sg"
+    vpc_id = "vpc-b30a04d4"
+}
+
+resource "aws_security_group" "cloudera-edge-sg" {
+    name = "cloudera-edge-sg"
+    vpc_id = "vpc-b30a04d4"
+}
+
+resource "aws_security_group" "cloudera-master-sg" {
+    name = "cloudera-master-sg"
+    vpc_id = "vpc-b30a04d4"
+}
+
+resource "aws_security_group" "cloudera-worker-sg" {
+    name = "cloudera-worker-sg"
+    vpc_id = "vpc-b30a04d4"
 }
 
 # Machines
